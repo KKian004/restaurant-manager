@@ -227,8 +227,79 @@ function App() {
 
   return (
     <div className="min-h-screen relative">
+      {/* Modal Popup - moved outside main container */}
+      {showAddItem && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => { setShowAddItem(false); setEditingItem(null); setNewItem({ name: '', price: '', category: 'Main', emoji: '🍽️' }) }}
+          ></div>
+          <div className="relative bg-white rounded-3xl shadow-xl p-6 w-full max-w-lg border border-stone-200 scale-in">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-bold text-xl">{editingItem ? 'Edit Item' : 'Add New Item'}</h3>
+              <button
+                onClick={() => { setShowAddItem(false); setEditingItem(null); setNewItem({ name: '', price: '', category: 'Main', emoji: '🍽️' }) }}
+                className="w-10 h-10 bg-stone-100 hover:bg-stone-200 rounded-xl transition-colors flex items-center justify-center text-gray-600"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="label">Name</label>
+                <input
+                  type="text"
+                  value={newItem.name}
+                  onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+                  className="input"
+                  placeholder="Item name"
+                />
+              </div>
+              <div>
+                <label className="label">Price</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={newItem.price}
+                  onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
+                  className="input"
+                  placeholder="0.00"
+                />
+              </div>
+              <div>
+                <label className="label">Category</label>
+                <select
+                  value={newItem.category}
+                  onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+                  className="input"
+                >
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="flex space-x-3 mt-6">
+              <button
+                onClick={editingItem ? handleUpdateItem : handleAddItem}
+                className="flex-1 btn btn-primary"
+              >
+                {editingItem ? 'Update Item' : 'Add Item'}
+              </button>
+              <button
+                onClick={() => { setShowAddItem(false); setEditingItem(null); setNewItem({ name: '', price: '', category: 'Main' }) }}
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
-      <header className="glass sticky top-0 z-50">
+      <header className="glass sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col items-center justify-center relative">
             {/* Japanese decorative pattern */}
@@ -467,7 +538,7 @@ function App() {
 
             {/* Modal Popup */}
             {showAddItem && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                 <div 
                   className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                   onClick={() => { setShowAddItem(false); setEditingItem(null); setNewItem({ name: '', price: '', category: 'Main', emoji: '🍽️' }) }}
