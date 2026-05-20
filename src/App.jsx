@@ -362,7 +362,7 @@ function App() {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 py-6 pb-24 relative z-10">
+      <main className="max-w-7xl mx-auto px-4 py-6 pb-24 relative">
         {/* Japanese decorative border */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-50"></div>
         
